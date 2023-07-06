@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load team %}
+
+{% block body %}
+<div class="d-table w-100 h-100 t-0 l-0 position-absolute">
+    <div class="d-table-cell align-middle">
+        <div class="text-center">
+            <div class="mb-3"><a class="h1 text-decoration-none pb-1" href="/">Baseball Of Korea</a></div>
+            <div class="container mt-5">
+                <div class="row row-cols-5">
+                    {% get_teams as teams %}
+                    {% for team in teams %}
+                    <div class="col">
+                        <a href="{{ team.get_absolute_url }}">
+                            <img style="height: 80%; width: 80%;" src="{{ team.logo_svg.url }}" alt="{{ team.name }}">
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
