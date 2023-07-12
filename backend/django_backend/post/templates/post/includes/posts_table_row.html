@@ -1,0 +1,13 @@
+{% load mathfilters %}
+
+<tr>
+    <td class="text-center"><a class="text-dark" href="{{ post.get_absolute_url }}">{{ post.title }}</a></td>
+    <td class="text-center">{{ post.user }}</td>
+    {% now "Y-m-d" as today %}
+    {% if today == post.created|date:"Y-m-d" %}
+    <td class="text-center">{{ post.created.hour }}:{{ post.created.minute }}
+    </td>
+    {% else %}
+    <td class="text-center">{{ post.created.year }}.{{ post.created.month }}.{{ post.created.day }}</td>
+    {% endif %}
+</tr>

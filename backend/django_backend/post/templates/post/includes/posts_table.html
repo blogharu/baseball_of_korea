@@ -1,0 +1,40 @@
+<table class="table table-hover w-100">
+    <colgroup>
+        <col>
+        <col style="width:10%">
+        <col style="width:10%">
+    </colgroup>
+    <thead>
+        <th class="text-center border-top-0" scope="col">Title</th>
+        <th class="text-center border-top-0" scope="col">Author</th>
+        <th class="text-center border-top-0" scope="col">Created</th>
+    </thead>
+    <tbody>
+        {% for post in posts %}
+        {% include 'post/include/posts_table_row.html' %}
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="position-relative">
+    <div class="text-center">
+        {% for _ in ''|center:7 %}
+        {% with posts.number|add:"-4"|add:forloop.counter as page %}
+        {% if page > 0 and page <= posts.paginator.num_pages %} <a
+            class="nohover text-dark link-dark {% if page == posts.number %}fw-bold disabled{% endif %}"
+            href="{{ post_list_url }}?{{ queries }}&page={{ page }}">
+            {% if forloop.counter == 1 %}
+            &lt Prev
+            {% elif forloop.counter == 7 %}
+            Next &gt
+            {% else %}
+            {{ page }}
+            {% endif %}
+            </a>
+            {% endif %}
+            {% endwith %}
+            {% endfor %}
+    </div>
+    {% if posts.number|add:"3" < posts.num_pages %} <a href="/">다음 &gt</a>
+        {% endif %}
+</div>

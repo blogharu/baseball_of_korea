@@ -3,6 +3,7 @@ import xml.etree.cElementTree as et
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.urls import reverse
 
 
 def validate_svg(f):
@@ -41,9 +42,9 @@ class Team(models.Model):
     @property
     def slug(self):
         return f"{self.sponsor}-{self.name}"
-    
+
     def get_absolute_url(self):
-        return ""
+        return f"{reverse('post:post_list')}?category={self.slug}"
 
 
 class Post(models.Model):
