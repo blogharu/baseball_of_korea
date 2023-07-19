@@ -1,3 +1,13 @@
-<div>
-
+<div class="pt-3">
+    <div class="text-center">
+        <form method="get">
+            {{ post_search_form.duration }}
+            {{ post_search_form.search_area }}
+            {{ post_search_form.search }}
+            {% if category %}
+            <input type="hidden" name="category" value="{{ category.slug }}">
+            {% endif %}
+            <input type="submit" value="Search">
+        </form>
+    </div>
 </div>

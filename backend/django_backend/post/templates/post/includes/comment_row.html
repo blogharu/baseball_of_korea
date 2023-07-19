@@ -1,0 +1,15 @@
+<div class="col-12">
+    <div>{{ comment.user }}</div>
+    <div>{{ comment.content }}</div>
+    <div class="row">
+        <div class="col">
+            {{ comment.created }}
+        </div>
+        {% if comment.user == request.user %}
+        <a href="{% url 'post:comment_edit' post_id=post.id %}?{{ request|get_query_parameters }}"
+            class="col-auto h3 btn btn-outline-dark border-0"><i class="bi bi-pencil-square"></i></a>
+        <a href="{% url 'post:comment_delete' post_id=post.id %}?{{ request|get_query_parameters }}"
+            class="col-auto h3 btn btn-outline-dark border-0"><i class="bi bi-trash"></i></a>
+        {% endif%}
+    </div>
+</div>

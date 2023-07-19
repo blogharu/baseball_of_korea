@@ -1,9 +1,21 @@
 {% load mathfilters %}
+{% load utils %}
 
 <tr>
-    <td class="text-center"><a class="text-dark" href="{{ post.get_absolute_url }}">{{ post.title }}</a></td>
-    <td class="text-center">{{ post.user }}</td>
     {% now "Y-m-d" as today %}
+    <td class="text-center border-bottom-4">
+        {% if today == post.created|date:"Y-m-d" %}
+        <span class="badge badge-primary">new</span>
+        {% endif %}
+        {% if post.created|date:"Y-m-d-h-m-s" != post.updated|date:"Y-m-d-h-m-s" and today == post.updated|date:"Y-m-d" %}
+        <span class="badge badge-info">updated</span>
+        {% endif %}
+        <a class="text-dark"
+            href="{{ post.get_absolute_url }}?{{ request|get_query_parameters }}">
+            {{ post.title }}
+        </a>
+    </td>
+    <td class="text-center">{{ post.user }}</td>
     {% if today == post.created|date:"Y-m-d" %}
     <td class="text-center">{{ post.created.hour }}:{{ post.created.minute }}
     </td>

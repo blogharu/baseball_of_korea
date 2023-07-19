@@ -1,0 +1,14 @@
+{% load utils %}
+<div class="container">
+    <form action="{% url 'post:comment_create' post_id=post.id %}?{{ request|get_query_parameters }}" method="post">
+        {% csrf_token %}
+        {{ comment_form.as_div }}
+        {% if comment.parent is None %}
+        <input type="hidden" name="parent_id" value="{{ comment.id }}">
+        {% endif %}
+        <div class="justify-content-end row">
+            <input class="form-control col" type="text" name="content">
+            <input class="btn btn-outline-dark col-auto" type="submit" value="submit">
+        </div>
+    </form>
+</div>

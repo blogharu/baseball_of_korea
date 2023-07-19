@@ -1,3 +1,5 @@
+{% load utils %}
+
 <table class="table table-hover w-100">
     <colgroup>
         <col>
@@ -11,7 +13,7 @@
     </thead>
     <tbody>
         {% for post in posts %}
-        {% include 'post/include/posts_table_row.html' %}
+        {% include 'post/includes/posts_table_row.html' %}
         {% endfor %}
     </tbody>
 </table>
@@ -21,8 +23,8 @@
         {% for _ in ''|center:7 %}
         {% with posts.number|add:"-4"|add:forloop.counter as page %}
         {% if page > 0 and page <= posts.paginator.num_pages %} <a
-            class="nohover text-dark link-dark {% if page == posts.number %}fw-bold disabled{% endif %}"
-            href="{{ post_list_url }}?{{ queries }}&page={{ page }}">
+            class="text-dark link-dark {% if page == posts.number %}nohover fw-bold disabled{% endif %}"
+            href="{% url 'post:post_list' %}?{{ request|get_query_parameters }}&page={{ page }}">
             {% if forloop.counter == 1 %}
             &lt Prev
             {% elif forloop.counter == 7 %}
@@ -35,6 +37,6 @@
             {% endwith %}
             {% endfor %}
     </div>
-    {% if posts.number|add:"3" < posts.num_pages %} <a href="/">다음 &gt</a>
+    {% if posts.number|add:"3" < posts.num_pages %} <a href="/">Next &gt</a>
         {% endif %}
 </div>

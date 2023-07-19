@@ -17,13 +17,14 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
 from post import views as post_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("post/", include("post.urls", "post")),
     path("", post_views.index, name="index"),
+    re_path("", include("social_django.urls", namespace="social")),
 ]
 
 if settings.DEBUG:

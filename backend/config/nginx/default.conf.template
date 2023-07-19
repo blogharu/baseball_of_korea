@@ -1,0 +1,33 @@
+upstream uwsgi {
+    server unix:/code/uwsgi.sock;
+}
+
+server {
+    listen 443 ssl;
+    ssl_certificate /code/ssl/blogharu.crt;
+    ssl_certificate_key /code/ssl/blogharu.key;
+    server_name blogharu.com;
+    return 301 https://baseball.$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    ssl_certificate /code/ssl/blogharu.crt;
+    ssl_certificate_key /code/ssl/blogharu.key;
+    server_name baseball.blogharu.com 192.168.0.6;
+    error_log stderr warn;
+    access_log /dev/stdout main;
+
+    location / {
+        include /etc/nginx/uwsgi_params;
+        uwsgi_pass uwsgi;
+    }
+
+    location /static/ {
+        alias /pv/static/;
+    }
+
+    location /media/ {
+        alias /pv/media/;
+    }
+}

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Post, Team
+from .models import Comment, Post, Team
 
 
 @admin.register(Team)
@@ -18,3 +18,8 @@ class PostAdmin(admin.ModelAdmin):
         "created",
         "updated",
     ]
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ["id", "post"]

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load utils %}
+{% block main %}
+<div class="container">
+    {% now "Y-m-d" as today %}
+    <div class="row justify-content-start pt-2">
+        <div class="col h3">
+            {{ post.title }}
+        </div>
+        {% if user == post.user %}
+        <a href="{% url 'post:post_edit' post_id=post.id %}?{{ request|get_query_parameters }}"
+            class="col-auto h3 btn btn-outline-dark border-0"><i class="bi bi-pencil-square"></i></a>
+        <a href="{% url 'post:post_delete' post_id=post.id %}?{{ request|get_query_parameters }}"
+            class="col-auto h3 btn btn-outline-dark border-0"><i class="bi bi-trash"></i></a>
+        {% endif %}
+        <div class="w-100"></div>
+        <div class="col h5">{{ post.user }}</div>
+        <div class="col text-right">{{ post.created.year }}.{{ post.created.month }}.{{ post.created.day }}
+            {{ post.created.hour }}:{{ post.created.minute }}
+        </div>
+        <div class="w-100 border-bottom pt-2"></div>
+        <div class="col-12 pt-5 pb-5 border-bottom">
+            <pre>
+                {{ post.content }}
+            </pre>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col h5 h-4">
+            Comments
+        </div>
+    </div>
+    {% for comment in comments %}
+    <div class="row justify-content-end">
+        <div class="col">
+            <span class="h5">{{ comment.user }}</span> |
+            {{ post.created.year }}.{{ post.created.month }}.{{ post.created.day }}
+            {{ post.created.hour }}:{{ post.created.minute }}
+        </div>
+        <div class="col-auto">
+            {% if request.user == comment.user %}
+            <a href="{% url 'post:comment_delete' post_id=post.id comment_id=comment.id %}?{{ request|get_query_parameters }}"
+                class="p-0 px-1 col-auto h3 btn btn-outline-dark border-0"><i class="bi bi-trash"></i></a>
+            {% endif %}
+        </div>
+        <div class="w-100"></div>
+        <p class="col-12 m-0 pb-1 border-bottom">
+            {{ comment.content }}
+        </p>
+    </div>
+    {% endfor %}
+    <div class="row mx-1 align-middle">
+        {% if user.is_authenticated %}
+        {% include 'post/includes/comment_form.html' %}
+        {% else %}
+        <div class="align-middle">
+            To write a comment, {% include 'post/includes/login_button.html' %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="container">
+    {% include 'post/includes/posts_table.html' %}
+</div>
+{% include 'post/includes/search_bar.html' %}
+{% endblock %}
