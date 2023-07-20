@@ -87,7 +87,7 @@ WSGI_APPLICATION = "baseball_of_korea.wsgi.application"
 
 DATABASES = {
     "default": loads(environ["DATABASE_JSON"])
-    if "DATABASES" in environ
+    if "DATABASE_JSON" in environ
     else {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
@@ -131,7 +131,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "static"
-STATICFILES_DIRS = [environ["STATICFILES_DIRS"]]
+# STATICFILES_DIRS = [environ["STATICFILES_DIRS"]]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
