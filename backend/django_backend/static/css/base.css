@@ -1,3 +1,8 @@
 a.nohover {
     pointer-events: none;
 }
+
+input {
+    border: 2px solid #eee;
+    border-radius: 10px;
+}
