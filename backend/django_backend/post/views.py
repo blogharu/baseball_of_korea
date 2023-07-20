@@ -63,7 +63,7 @@ def post_create(request):
             return redirect(post.get_absolute_url(request))
     else:
         post_form = PostForm()
-    return render(request, "post/post_edit.html", {"post_form": post_form})
+    return render(request, "post/post_create.html", {"post_form": post_form})
 
 
 def post_edit(request, post_id):
