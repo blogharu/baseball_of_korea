@@ -21,7 +21,6 @@ from django.urls import include, path, re_path
 from post import views as post_views
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
     path("post/", include("post.urls", "post")),
     path("", post_views.index, name="index"),
     re_path("", include("social_django.urls", namespace="social")),
@@ -32,3 +31,4 @@ if settings.DEBUG:
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT,
     )
+    urlpatterns.append(path("admin/", admin.site.urls))
