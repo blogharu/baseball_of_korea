@@ -14,6 +14,7 @@ from json import loads
 from os import environ
 from pathlib import Path
 
+from django.urls import reverse_lazy
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -31,7 +32,7 @@ SECRET_KEY = environ["SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = environ["DEBUG"] == "True"
 
-ALLOWED_HOSTS = ["baseball.blogharu.com", "192.168.*"] if not DEBUG else ["*"]
+ALLOWED_HOSTS = ["baseball","baseball.blogharu.com", "192.168.*"] if not DEBUG else ["*"]
 
 
 # Application definition
@@ -156,3 +157,5 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     "https://www.googleapis.com/auth/userinfo.email",
     "https://www.googleapis.com/auth/userinfo.profile",
 ]
+
+LOGIN_URL = reverse_lazy('social:begin', kwargs=dict(backend="google-oauth2")) # '/login/google-oauth2'

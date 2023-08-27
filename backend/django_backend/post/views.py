@@ -1,4 +1,5 @@
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
@@ -45,7 +46,7 @@ def post_detail(request, post_id):
         },
     )
 
-
+@login_required()
 def post_create(request):
     category = request.GET.get("category", "None-None")
     sponsor, name = category.split("-")
@@ -65,7 +66,7 @@ def post_create(request):
         post_form = PostForm()
     return render(request, "post/post_create.html", {"post_form": post_form})
 
-
+@login_required
 def post_edit(request, post_id):
     post = get_object_or_404(Post, id=post_id, user=request.user)
     if request.POST:
